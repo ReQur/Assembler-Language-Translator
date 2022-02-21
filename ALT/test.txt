@@ -1,0 +1,6 @@
+ADD B;
+ADD M;
+ADD C;
+ADD D;
+ADI 5F;
+CALL 08FE;
