@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -44,7 +45,7 @@ namespace ALT
                 }
                 try
                 {
-                    commandResult = _commandDictionary[commandArray[0]].Invoke(commandArray);
+                    commandResult = _commandDictionary[commandArray[0]].Item1.Invoke(commandArray, _commandDictionary[commandArray[0]].Item2);
                     commandResult.PrintResult();
                 }
                 catch (Exception e)
@@ -53,55 +54,33 @@ namespace ALT
                 }
             }
         }
-        private static CommandResult ADD_func(string[] commandArray)
+
+        private static CommandResult first_type_func(string[] commandArray, Dictionary<string, int> commandCode)
         {
             if (commandArray.Length != 2)
             {
                 throw new Exception("Invalid Number of arguments");
             }
 
-            if (!_addCommandDictionary.ContainsKey(commandArray[1]))
+            if (!commandCode.ContainsKey(commandArray[1]))
             {
                 throw new Exception("Invalid argument");
             }
 
-            return new CommandResult(_addCommandDictionary[commandArray[1]]);
+            return new CommandResult(commandCode[commandArray[1]]);
         }
+        
         private static CommandResult ADI_func(string[] commandArray)
         {
             return new CommandResult(0xC6, ToHex(commandArray[1]));
         }
-        private static CommandResult ADC_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (!_adcCommandDictionary.ContainsKey(commandArray[1]))
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(_adcCommandDictionary[commandArray[1]]);
-        }
+        
         private static CommandResult ACI_func(string[] commandArray)
         {
             return new CommandResult(0xCE, ToHex(commandArray[1]));
         }
 
-        private static CommandResult ANA_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (!_anaCommandDictionary.ContainsKey(commandArray[1]))
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(_anaCommandDictionary[commandArray[1]]);
-        }
+        
         private static CommandResult ANI_func(string[] commandArray)
         {
             return new CommandResult(0xE6, ToHex(commandArray[1]));
@@ -233,19 +212,6 @@ namespace ALT
             return new CommandResult(0x3F);
         }
 
-        private static CommandResult CMP_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (!_cmpCommandDictionary.ContainsKey(commandArray[1]))
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(_cmpCommandDictionary[commandArray[1]]);
-        }
         private static CommandResult CPI_func(string[] commandArray)
         {
             return new CommandResult(0xFE, ToHex(commandArray[1]));
@@ -253,33 +219,6 @@ namespace ALT
         private static CommandResult DAA_func(string[] commandArray)
         {
             return new CommandResult(0x27);
-        }
-
-        private static CommandResult DAD_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (!_dadCommandDictionary.ContainsKey(commandArray[1]))
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(_dadCommandDictionary[commandArray[1]]);
-        }
-        private static CommandResult DCR_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (!_dcrCommandDictionary.ContainsKey(commandArray[1]))
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(_dcrCommandDictionary[commandArray[1]]);
         }
     }
 }
