@@ -250,5 +250,36 @@ namespace ALT
         {
             return new CommandResult(0xFE, ToHex(commandArray[1]));
         }
+        private static CommandResult DAA_func(string[] commandArray)
+        {
+            return new CommandResult(0x27);
+        }
+
+        private static CommandResult DAD_func(string[] commandArray)
+        {
+            if (commandArray.Length != 2)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+
+            if (!_dadCommandDictionary.ContainsKey(commandArray[1]))
+            {
+                throw new Exception("Invalid argument");
+            }
+            return new CommandResult(_dadCommandDictionary[commandArray[1]]);
+        }
+        private static CommandResult DCR_func(string[] commandArray)
+        {
+            if (commandArray.Length != 2)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+
+            if (!_dcrCommandDictionary.ContainsKey(commandArray[1]))
+            {
+                throw new Exception("Invalid argument");
+            }
+            return new CommandResult(_dcrCommandDictionary[commandArray[1]]);
+        }
     }
 }

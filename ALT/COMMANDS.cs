@@ -29,6 +29,9 @@ namespace ALT
             {"CMC", CMC_func},
             {"CMP", CMP_func},
             {"CPI", CPI_func},
+            {"DAA", DAA_func},
+            {"DAD", DAD_func},
+            {"DCR", DCR_func},
         };
 
 
@@ -75,6 +78,24 @@ namespace ALT
             {"H", 0xBC},
             {"L", 0xBD},
             {"M", 0xBE},
+        };
+        private static Dictionary<string, int> _dadCommandDictionary = new Dictionary<string, int>()
+        {
+            {"B", 0x09},
+            {"D", 0x19},
+            {"H", 0x29},
+            {"SP", 0x39},
+        };
+        private static Dictionary<string, int> _dcrCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0x3D},
+            {"B", 0x05},
+            {"C", 0x0D},
+            {"D", 0x15},
+            {"E", 0x1D},
+            {"H", 0x25},
+            {"L", 0x2D},
+            {"M", 0x35},
         };
     }
 }
