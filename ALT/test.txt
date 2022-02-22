@@ -1,4 +1,6 @@
 ADD B;
 ADD M;
 ADD C;
+ADC D;
+ANA E;
 ADD D;

@@ -37,15 +37,14 @@ namespace ALT
                 }
                 var command = line.Replace(";", "");
                 var commandArray = command.Split(' ');
-
-                CommandResult commandResult;
+                
                 if (!_commandDictionary.ContainsKey(commandArray[0]))
                 {
                     _validationResult.Add(new Exception("Invalid command"), lineNumber);
                 }
                 try
                 {
-                    commandResult = _commandDictionary[commandArray[0]].Item1.Invoke(commandArray, _commandDictionary[commandArray[0]].Item2);
+                    CommandResult commandResult = _commandDictionary[commandArray[0]].Item1.Invoke(commandArray, _commandDictionary[commandArray[0]].Item2);
                     commandResult.PrintResult();
                 }
                 catch (Exception e)
@@ -69,24 +68,21 @@ namespace ALT
 
             return new CommandResult(commandCode[commandArray[1]]);
         }
-        
-        private static CommandResult ADI_func(string[] commandArray)
-        {
-            return new CommandResult(0xC6, ToHex(commandArray[1]));
-        }
-        
-        private static CommandResult ACI_func(string[] commandArray)
-        {
-            return new CommandResult(0xCE, ToHex(commandArray[1]));
-        }
 
-        
-        private static CommandResult ANI_func(string[] commandArray)
+        private static CommandResult second_type_func(string[] commandArray, Dictionary<string, int> commandCode)
         {
-            return new CommandResult(0xE6, ToHex(commandArray[1]));
-        }
+            if (commandArray.Length != 2)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
 
-        private static CommandResult CALL_func(string[] commandArray)
+            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFF)
+            {
+                throw new Exception("Invalid argument");
+            }
+            return new CommandResult(commandCode[commandArray[0]], ToHex(commandArray[1]));
+        }
+        private static CommandResult CALL_type_func(string[] commandArray, Dictionary<string, int> commandCode)
         {
             if (commandArray.Length != 2)
             {
@@ -97,128 +93,24 @@ namespace ALT
             {
                 throw new Exception("Invalid argument");
             }
-            return new CommandResult(0xCD, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CZ_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
+            if (!commandCode.ContainsKey(commandArray[0]))
             {
-                throw new Exception("Invalid Number of arguments");
+                throw new Exception("Invalid command");
+            }
+            return new CommandResult(commandCode[commandArray[0]], ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
+        }
+        private static CommandResult third_type_func(string[] commandArray, Dictionary<string, int> commandCode)
+        {
+            if (commandArray.Length != 1)
+            {
+                throw new Exception("Invalid format");
             }
 
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
+            if (!commandCode.ContainsKey(commandArray[0]))
             {
-                throw new Exception("Invalid argument");
+                throw new Exception("Invalid command");
             }
-            return new CommandResult(0xCC, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CNZ_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xC4, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CP_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xF4, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CM_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xFC, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CC_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xDC, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CNC_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xD4, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CPE_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xEC, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CPO_func(string[] commandArray)
-        {
-            if (commandArray.Length != 2)
-            {
-                throw new Exception("Invalid Number of arguments");
-            }
-
-            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
-            {
-                throw new Exception("Invalid argument");
-            }
-            return new CommandResult(0xE4, ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
-        }
-        private static CommandResult CMA_func(string[] commandArray)
-        {
-            return new CommandResult(0x2F);
-        }
-        private static CommandResult CMC_func(string[] commandArray)
-        {
-            return new CommandResult(0x3F);
-        }
-
-        private static CommandResult CPI_func(string[] commandArray)
-        {
-            return new CommandResult(0xFE, ToHex(commandArray[1]));
-        }
-        private static CommandResult DAA_func(string[] commandArray)
-        {
-            return new CommandResult(0x27);
+            return new CommandResult(commandCode[commandArray[0]]);
         }
     }
 }

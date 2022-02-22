@@ -21,32 +21,6 @@ namespace ALT
             {"L", 0x85},
             {"M", 0x86},
         };
-        private static Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>> _commandDictionary =
-            new Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>>()
-            {
-                {"ADD", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _addCommandDictionary)},
-                //{"ADI", (ADI_func, null)},
-                //{"ADC", (first_type_func, _adcCommandDictionary)},
-                //{"ACI", ACI_func},
-                //{"ANA", (first_type_func, _anaCommandDictionary)},
-                //{"ANI", ANI_func},
-                //{"CALL", CALL_func},
-                //{"CZ", CZ_func},
-                //{"CNZ", CNZ_func},
-                //{"CP", CP_func},
-                //{"CM", CM_func},
-                //{"CC", CC_func},
-                //{"CNC", CNC_func},
-                //{"CPE", CPE_func},
-                //{"CPO", CPO_func},
-                //{"CMA", CMA_func},
-                //{"CMC", CMC_func},
-                //{"CMP", (first_type_func, _cmpCommandDictionary)},
-                //{"CPI", CPI_func},
-                //{"DAA", DAA_func},
-                //{"DAD", (first_type_func, _dadCommandDictionary)},
-                //{"DCR", (first_type_func,_dcrCommandDictionary)},
-            };
         private static Dictionary<string, int> _adcCommandDictionary = new Dictionary<string, int>()
         {
             {"A", 0x8F},
@@ -98,5 +72,81 @@ namespace ALT
             {"L", 0x2D},
             {"M", 0x35},
         };
+        private static Dictionary<string, int> _secondTypeCommandDictionary = new Dictionary<string, int>()
+        {
+            {"ADI", 0xC6},
+            {"ACI", 0xCE},
+            {"ANI", 0xE6},
+            {"XRI", 0xEE},
+            {"ORI", 0xF6},
+            {"CPI", 0xFE},
+            {"SUI", 0xD6},
+            {"SBI", 0xDE},
+        };
+        private static Dictionary<string, int> _callTypeCommandDictionary = new Dictionary<string, int>()
+        {
+            {"CALL", 0xCD},
+            {"CZ", 0xCC},
+            {"CNZ", 0xC4},
+            {"CP", 0xF4},
+            {"CM", 0xFC},
+            {"CC", 0xDC},
+            {"CNC", 0xD4},
+            {"CPE", 0xEC},
+            {"CPO", 0xE4},
+        };
+
+        private static Dictionary<string, int> _thirdTypeCommandDictionary = new Dictionary<string, int>()
+        {
+            {"CMA", 0x2F},
+            {"CMC", 0x3F},
+            {"DAA", 0x27},
+            {"DI", 0xF3},
+            {"EI", 0xFB},
+            {"HLT", 0x76},
+            {"NOP", 0x00},
+            {"PCHL", 0xE9},
+            {"RAL", 0x17},
+            {"RAR", 0x1F},
+            {"RLC", 0x07},
+            {"RRC", 0x0F},
+            {"RIM", 0x20},
+            {"RET", 0xC9},
+            {"RZ", 0xC8},
+            {"RNZ", 0xC0},
+            {"RP", 0xF0},
+            {"RM", 0xF8},
+            {"RC", 0xD8},
+            {"RNC", 0xD0},
+            {"RPE", 0xE8},
+            {"RPO", 0xE0},
+        };
+
+        private static Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>> _commandDictionary =
+            new Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>>()
+            {
+                {"ADD", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _addCommandDictionary)},
+                {"ADI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
+                {"ADC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _adcCommandDictionary)},
+                {"ACI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
+                {"ANA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _anaCommandDictionary)},
+                {"ANI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
+                {"CALL", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CZ", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CNZ", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CP", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CM", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CNC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CPE", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CPO", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
+                {"CMA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
+                {"CMC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
+                {"CMP", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _cmpCommandDictionary)},
+                {"CPI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
+                {"DAA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
+                {"DAD", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _dadCommandDictionary)},
+                {"DCR", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _dcrCommandDictionary)},
+            };
     }
 }
