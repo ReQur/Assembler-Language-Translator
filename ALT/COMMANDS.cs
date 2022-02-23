@@ -122,31 +122,38 @@ namespace ALT
             {"RPO", 0xE0},
         };
 
+        private static Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>
+            MakeTuple(Func<string[], Dictionary<string, int>, CommandResult> func, Dictionary<string, int> dictionary)
+        {
+            return new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(
+                func, dictionary);
+        }
+
         private static Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>> _commandDictionary =
             new Dictionary<string, Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>>()
             {
-                {"ADD", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _addCommandDictionary)},
-                {"ADI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
-                {"ADC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _adcCommandDictionary)},
-                {"ACI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
-                {"ANA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _anaCommandDictionary)},
-                {"ANI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
-                {"CALL", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CZ", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CNZ", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CP", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CM", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CNC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CPE", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CPO", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(CALL_type_func, _callTypeCommandDictionary)},
-                {"CMA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
-                {"CMC", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
-                {"CMP", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _cmpCommandDictionary)},
-                {"CPI", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(second_type_func, _secondTypeCommandDictionary)},
-                {"DAA", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(third_type_func, _thirdTypeCommandDictionary)},
-                {"DAD", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _dadCommandDictionary)},
-                {"DCR", new Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>(first_type_func, _dcrCommandDictionary)},
+                {"ADD", MakeTuple(first_type_func, _addCommandDictionary)},
+                {"ADI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"ADC", MakeTuple(first_type_func, _adcCommandDictionary)},
+                {"ACI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"ANA", MakeTuple(first_type_func, _anaCommandDictionary)},
+                {"ANI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"CALL", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CZ", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CNZ", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CP", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CM", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CC", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CNC", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CPE", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CPO", MakeTuple(CALL_type_func, _callTypeCommandDictionary)},
+                {"CMA", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"CMC", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"CMP", MakeTuple(first_type_func, _cmpCommandDictionary)},
+                {"CPI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"DAA", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"DAD", MakeTuple(first_type_func, _dadCommandDictionary)},
+                {"DCR", MakeTuple(first_type_func, _dcrCommandDictionary)},
             };
     }
 }
