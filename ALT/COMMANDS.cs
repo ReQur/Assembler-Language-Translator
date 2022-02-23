@@ -188,7 +188,6 @@ namespace ALT
             {"SUI", 0xD6},
             {"SBI", 0xDE},
             {"IN", 0xDB},
-            {"ORI", 0xF6},
             {"OUT", 0xD3},
         };
         private static Dictionary<string, int> _callTypeCommandDictionary = new Dictionary<string, int>()
@@ -391,6 +390,7 @@ namespace ALT
                 {"MVI", MakeTuple(MVI_type_func, _mviCommandDictionary)},
                 {"NOP", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
                 {"ORA", MakeTuple(first_type_func, _oraCommandDictionary)},
+                {"ORI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
                 {"PCHL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
                 {"POP", MakeTuple(first_type_func, _popCommandDictionary)},
                 {"PUSH", MakeTuple(first_type_func, _pushCommandDictionary)},
@@ -421,7 +421,7 @@ namespace ALT
                 {"SBI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
                 {"XCHG", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
                 {"XTHL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
-                {"XRA", MakeTuple(first_type_func, _sbbCommandDictionary)},
+                {"XRA", MakeTuple(first_type_func, _xraCommandDictionary)},
                 {"XRI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
             };
     }

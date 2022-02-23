@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,14 @@ namespace ALT
 
             if (_secondByte != 0xFFFF) Console.WriteLine(_secondByte.ToString("x2"));
             if (_thirdByte != 0xFFFF) Console.WriteLine(_thirdByte.ToString("x2"));
+        }
+
+        public void SaveInFile(StreamWriter sw)
+        {
+            sw.WriteLine(_firstByte.ToString("x2"));
+
+            if (_secondByte != 0xFFFF) sw.WriteLine(_secondByte.ToString("x2"));
+            if (_thirdByte != 0xFFFF) sw.WriteLine(_thirdByte.ToString("x2"));
         }
     }
 }

@@ -10,18 +10,11 @@ using System.Threading.Tasks;
 
 namespace ALT
 {
-    partial class ALT
+    static partial class ALT
     {
         private static ValidationResult _validationResult = new ValidationResult();
-        ALT()
-        {
+        private static TranslationResult _translationResult = new TranslationResult();
 
-        }
-
-        private static int ToHex(string Number)
-        {
-            return Int32.Parse(Number, System.Globalization.NumberStyles.HexNumber);
-        }
         public static void Translate(string file)
         {
             int lineNumber = 0;
@@ -56,7 +49,7 @@ namespace ALT
                 try
                 {
                     CommandResult commandResult = _commandDictionary[commandArray[0]].Item1.Invoke(commandArray, _commandDictionary[commandArray[0]].Item2);
-                    commandResult.PrintResult();
+                    _translationResult.Add(commandResult);
                 }
                 catch (Exception e)
                 {
