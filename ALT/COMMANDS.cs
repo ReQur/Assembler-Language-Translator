@@ -102,6 +102,81 @@ namespace ALT
             {"B", 0x0A},
             {"D", 0x1A},
         };
+        private static Dictionary<string, int> _staxTypeCommandDictionary = new Dictionary<string, int>()
+        {
+            {"B", 0x02},
+            {"D", 0x12},
+        };
+        private static Dictionary<string, int> _oraCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0xB7},
+            {"B", 0xB0},
+            {"C", 0xB1},
+            {"D", 0xB2},
+            {"E", 0xB3},
+            {"H", 0xB4},
+            {"L", 0xB5},
+            {"M", 0xB6},
+        };
+        private static Dictionary<string, int> _subCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0x97},
+            {"B", 0x90},
+            {"C", 0x91},
+            {"D", 0x92},
+            {"E", 0x93},
+            {"H", 0x94},
+            {"L", 0x95},
+            {"M", 0x96},
+        };
+        private static Dictionary<string, int> _sbbCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0x9F},
+            {"B", 0x98},
+            {"C", 0x99},
+            {"D", 0x9A},
+            {"E", 0x9B},
+            {"H", 0x9C},
+            {"L", 0x9D},
+            {"M", 0x9E},
+        };
+        private static Dictionary<string, int> _xraCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0xAF},
+            {"B", 0xA8},
+            {"C", 0xA9},
+            {"D", 0xAA},
+            {"E", 0xAB},
+            {"H", 0xAC},
+            {"L", 0xAD},
+            {"M", 0xAE},
+        };
+        private static Dictionary<string, int> _popCommandDictionary = new Dictionary<string, int>()
+        {
+            {"B", 0xC1},
+            {"D", 0xD1},
+            {"H", 0xE1},
+            {"PSW", 0xF1},
+        };
+        private static Dictionary<string, int> _pushCommandDictionary = new Dictionary<string, int>()
+        {
+            {"B", 0xC5},
+            {"D", 0xD5},
+            {"H", 0xE5},
+            {"PSW", 0xF5},
+        };
+        private static Dictionary<string, int> _rstCommandDictionary = new Dictionary<string, int>()
+        {
+
+            {"0", 0xC7},
+            {"1", 0xCF},
+            {"2", 0xD7},
+            {"3", 0xDF},
+            {"4", 0xE7},
+            {"5", 0xEF},
+            {"6", 0xF7},
+            {"7", 0xFF},
+        };
         private static Dictionary<string, int> _secondTypeCommandDictionary = new Dictionary<string, int>()
         {
             {"ADI", 0xC6},
@@ -113,6 +188,7 @@ namespace ALT
             {"SUI", 0xD6},
             {"SBI", 0xDE},
             {"IN", 0xDB},
+            {"ORI", 0xF6},
             {"OUT", 0xD3},
         };
         private static Dictionary<string, int> _callTypeCommandDictionary = new Dictionary<string, int>()
@@ -164,6 +240,11 @@ namespace ALT
             {"RNC", 0xD0},
             {"RPE", 0xE8},
             {"RPO", 0xE0},
+            {"SIM", 0x30},
+            {"SPHL", 0xF9},
+            {"STC", 0x37},
+            {"XCHG", 0xEB},
+            {"XTHL", 0xE3},
         };
 
         private static Dictionary<string, int> _fourthTypeCommandDictionary = new Dictionary<string, int>()
@@ -308,6 +389,40 @@ namespace ALT
                 {"LXI", MakeTuple(LXI_type_func, _lxiCommandDictionary)},
                 {"MOV", MakeTuple(MOV_type_func, _movCommandDictionary)},
                 {"MVI", MakeTuple(MVI_type_func, _mviCommandDictionary)},
+                {"NOP", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"ORA", MakeTuple(first_type_func, _oraCommandDictionary)},
+                {"PCHL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"POP", MakeTuple(first_type_func, _popCommandDictionary)},
+                {"PUSH", MakeTuple(first_type_func, _pushCommandDictionary)},
+                {"RAL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RAR", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RLC", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RRC", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RIM", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RET", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RZ", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RNZ", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RP", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RM", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RC", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RNC", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RPE", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RPO", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"RST", MakeTuple(first_type_func, _rstCommandDictionary)},
+                {"SIM", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"SPHL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"SHLD", MakeTuple(fourth_type_func, _fourthTypeCommandDictionary)},
+                {"STA", MakeTuple(fourth_type_func, _fourthTypeCommandDictionary)},
+                {"STAX", MakeTuple(first_type_func, _staxTypeCommandDictionary)},
+                {"STС", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"SUB", MakeTuple(first_type_func, _subCommandDictionary)},
+                {"SUI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"SBB", MakeTuple(first_type_func, _sbbCommandDictionary)},
+                {"SBI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
+                {"XCHG", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"XTHL", MakeTuple(third_type_func, _thirdTypeCommandDictionary)},
+                {"XRA", MakeTuple(first_type_func, _sbbCommandDictionary)},
+                {"XRI", MakeTuple(second_type_func, _secondTypeCommandDictionary)},
             };
     }
 }
