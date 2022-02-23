@@ -36,6 +36,16 @@ namespace ALT
                     }
                 }
                 var command = line.Replace(";", "");
+
+                if (Regex.IsMatch(command, ".*\\s.,\\s."))
+                {
+                    command = command.Replace(", ", "");
+                }
+                else if (Regex.IsMatch(command, ".*\\s.,."))
+                {
+                    command = command.Replace(",", "");
+                }
+
                 var commandArray = command.Split(' ');
                 
                 if (!_commandDictionary.ContainsKey(commandArray[0]))
@@ -111,6 +121,36 @@ namespace ALT
                 throw new Exception("Invalid command");
             }
             return new CommandResult(commandCode[commandArray[0]]);
+        }
+        private static CommandResult fourth_type_func(string[] commandArray, Dictionary<string, int> commandCode)
+        {
+            if (commandArray.Length != 2)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+
+            if (ToHex(commandArray[1]) < 0 || ToHex(commandArray[1]) > 0xFFFF)
+            {
+                throw new Exception("Invalid argument");
+            }
+            if (!commandCode.ContainsKey(commandArray[0]))
+            {
+                throw new Exception("Invalid command");
+            }
+            return new CommandResult(commandCode[commandArray[0]], ToHex(commandArray[1].Substring(2, 2)), ToHex(commandArray[1].Substring(0, 2)));
+        }
+
+        private static CommandResult MOV_type_func(string[] commandArray, Dictionary<string, int> commandCode)
+        {
+            if (commandArray.Length != 2)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+            if (!commandCode.ContainsKey(commandArray[1]))
+            {
+                throw new Exception("Invalid arguments");
+            }
+            return new CommandResult(commandCode[commandArray[1]]);
         }
     }
 }

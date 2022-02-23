@@ -4,3 +4,5 @@ ADD C;
 ADC D;
 ANA E;
 ADD D;
+MOV A, B;
+MOV A,C;
