@@ -39,11 +39,11 @@ namespace ALT
 
                 if (Regex.IsMatch(command, ".*\\s.,\\s."))
                 {
-                    command = command.Replace(", ", "");
+                    command = command.Replace(", ", " ");
                 }
                 else if (Regex.IsMatch(command, ".*\\s.,."))
                 {
-                    command = command.Replace(",", "");
+                    command = command.Replace(",", " ");
                 }
 
                 var commandArray = command.Split(' ');
@@ -142,15 +142,15 @@ namespace ALT
 
         private static CommandResult MOV_type_func(string[] commandArray, Dictionary<string, int> commandCode)
         {
-            if (commandArray.Length != 2)
+            if (commandArray.Length != 3)
             {
                 throw new Exception("Invalid Number of arguments");
             }
-            if (!commandCode.ContainsKey(commandArray[1]))
+            if (!commandCode.ContainsKey(commandArray[1] + commandArray[2]))
             {
                 throw new Exception("Invalid arguments");
             }
-            return new CommandResult(commandCode[commandArray[1]]);
+            return new CommandResult(commandCode[commandArray[1] + commandArray[2]]);
         }
     }
 }
