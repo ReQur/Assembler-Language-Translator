@@ -239,6 +239,23 @@ namespace ALT
             {"MH", 0x74},
             {"ML", 0x75},
         };
+        private static Dictionary<string, int> _lxiCommandDictionary = new Dictionary<string, int>()
+        {
+            {"B", 0x01},
+            {"H", 0x21},
+            {"SP", 0x31},
+        };
+        private static Dictionary<string, int> _mviCommandDictionary = new Dictionary<string, int>()
+        {
+            {"A", 0x3E},
+            {"B", 0x06},
+            {"C", 0x0E},
+            {"D", 0x16},
+            {"E", 0x1E},
+            {"H", 0x26},
+            {"L", 0x2E},
+            {"M", 0x36},
+        };
 
         private static Tuple<Func<string[], Dictionary<string, int>, CommandResult>, Dictionary<string, int>>
             MakeTuple(Func<string[], Dictionary<string, int>, CommandResult> func, Dictionary<string, int> dictionary)
@@ -286,8 +303,11 @@ namespace ALT
                 {"JPE", MakeTuple(CALL_type_func, _jmpTypeCommandDictionary)},
                 {"JPO", MakeTuple(CALL_type_func, _jmpTypeCommandDictionary)},
                 {"LDA", MakeTuple(fourth_type_func, _fourthTypeCommandDictionary)},
+                {"LHLD", MakeTuple(fourth_type_func, _fourthTypeCommandDictionary)},
                 {"LDAX", MakeTuple(first_type_func, _ldaxTypeCommandDictionary)},
+                {"LXI", MakeTuple(LXI_type_func, _lxiCommandDictionary)},
                 {"MOV", MakeTuple(MOV_type_func, _movCommandDictionary)},
+                {"MVI", MakeTuple(MVI_type_func, _mviCommandDictionary)},
             };
     }
 }

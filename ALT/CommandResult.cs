@@ -34,7 +34,7 @@ namespace ALT
 
         public void PrintResult()
         {
-            Console.WriteLine(_firstByte.ToString("x"));
+            Console.WriteLine(_firstByte.ToString("x2"));
 
             if (_secondByte != 0xFFFF) Console.WriteLine(_secondByte.ToString("x2"));
             if (_thirdByte != 0xFFFF) Console.WriteLine(_thirdByte.ToString("x2"));

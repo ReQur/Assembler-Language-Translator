@@ -6,3 +6,5 @@ ANA E;
 ADD D;
 MOV A, B;
 MOV A,C;
+LXI B, 4545;
+MVI C, 15;

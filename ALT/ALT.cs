@@ -33,6 +33,7 @@ namespace ALT
                     if (!Regex.IsMatch(line, ".*:"))
                     {
                         _validationResult.Add(new Exception("Incorrect line format"), lineNumber);
+                        continue;
                     }
                 }
                 var command = line.Replace(";", "");
@@ -152,5 +153,35 @@ namespace ALT
             }
             return new CommandResult(commandCode[commandArray[1] + commandArray[2]]);
         }
+
+        private static CommandResult LXI_type_func(string[] commandArray, Dictionary<string, int> commandCode)
+        {
+            if (commandArray.Length != 3)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+            if (ToHex(commandArray[2]) < 0 || ToHex(commandArray[2]) > 0xFFFF)
+            {
+                throw new Exception("Invalid argument");
+            }
+            if (!commandCode.ContainsKey(commandArray[1]))
+            {
+                throw new Exception("Invalid arguments");
+            }
+            return new CommandResult(commandCode[commandArray[1]], ToHex(commandArray[2].Substring(2, 2)), ToHex(commandArray[2].Substring(0, 2)));
+        }
+        private static CommandResult MVI_type_func(string[] commandArray, Dictionary<string, int> commandCode)
+        {
+            if (commandArray.Length != 3)
+            {
+                throw new Exception("Invalid Number of arguments");
+            }
+            if (!commandCode.ContainsKey(commandArray[1]))
+            {
+                throw new Exception("Invalid arguments");
+            }
+            return new CommandResult(commandCode[commandArray[1]], ToHex(commandArray[2]));
+        }
+
     }
 }
